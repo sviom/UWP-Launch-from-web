@@ -102,6 +102,18 @@ namespace LaunchFromLink
             Frame rootFrame = Window.Current.Content as Frame;
             if (rootFrame == null)
             {
+                // 탐색 컨텍스트로 사용할 프레임을 만들고 첫 페이지로 이동합니다.
+                rootFrame = new Frame();
+
+                rootFrame.NavigationFailed += OnNavigationFailed;
+
+                if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                {
+                    //TODO: 이전에 일시 중지된 응용 프로그램에서 상태를 로드합니다.
+                }
+
+                // 현재 창에 프레임 넣기
+                Window.Current.Content = rootFrame;
             }
 
             // Check ActivationKind, Parse URI, and Navigate user to content
@@ -109,6 +121,13 @@ namespace LaunchFromLink
             if (args.Kind == ActivationKind.Protocol)
             {
                 var protocolArgs = (ProtocolActivatedEventArgs)args;
+
+                var sss = protocolArgs.Uri.Query;   // ?code=1234
+                sss = sss.Replace("?", "");         // code=1234
+                var fff = sss.Split('=');           // [code][1234]
+                var ff1 = fff[0];                   // code
+                var ff2 = fff[1];                   // 1234   
+            
                 switch (protocolArgs.Uri.AbsolutePath)
                 {
                     case "/":
