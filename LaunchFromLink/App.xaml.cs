@@ -122,6 +122,12 @@ namespace LaunchFromLink
             {
                 var protocolArgs = (ProtocolActivatedEventArgs)args;
 
+                var fqq = protocolArgs.Uri.Scheme;
+                if (fqq.Equals("alsdk"))
+                {
+                }
+                //var qqq = protocolArgs.Uri.Query.
+
                 var sss = protocolArgs.Uri.Query;   // ?code=1234
                 sss = sss.Replace("?", "");         // code=1234
                 var fff = sss.Split('=');           // [code][1234]
